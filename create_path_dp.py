@@ -2,17 +2,12 @@ import time
 import sys
 sys.setrecursionlimit(1000000000)
 
-width = 51
-height = 51
-G = [[] for _ in range(height)]
-idx = 0
-for i in range(height):
-    for _ in range(width):
-        G[i].append(idx)
-        idx += 1
+width = 3
+height = 3
+G = [[i for i in range(j*width, width+j*width)] for j in range(height)]
 
-# for row in G:
-#     print(*row)
+for row in G:
+    print(row)
 
 def create_adjacency_list(width, height):
     adjacency_list = [[] for _ in range(height*width)]
@@ -105,7 +100,6 @@ dp2 = [[[] for _ in range(width*height)] for _ in range(height*width-1)]
 for i in adjacency_list[width*height-1]:
     dp2[0][i].append(width*height-1)
 
-
 for i in range(height*width-2):
     for j in range(height*width):
         if not dp2[i][j]: continue # 空
@@ -127,11 +121,11 @@ def dfs(route, y, x):
         new_line = route + [i]
         route = dfs(new_line, y+1, i)
     return route
-# for row in dp:
-#     print(row)
-# print("######")
-# for row in dp2:
-#     print(row)
+for row in dp:
+    print(row)
+print("######")
+for row in dp2:
+    print(row)
 
 ans = dfs([0], 0, 0)
 print(time.time()-pre_time)
